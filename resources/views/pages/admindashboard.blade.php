@@ -682,7 +682,7 @@
                               <div style="display: flex; flex-direction: row; align-items: flex-start; gap: 10px;">
                                   <button class="btn p-1 legend-grid-item" style="width: auto; padding-left: 0 !important;" data-bs-toggle="modal" data-bs-target="#level66Modal">
                                     <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital-pin-red.png" style="width:24px; height:24px;">
-                                    <small>Class A</small>
+                                    <small>Territorial Hospital</small>
                                   </button>
                               </div>
                             </div>
@@ -693,11 +693,7 @@
                               <div style="display: flex; flex-direction: row; align-items: flex-start; gap: 10px;">
                                   <button class="btn p-1 legend-grid-item" style="width: auto; padding-left: 0 !important;" data-bs-toggle="modal" data-bs-target="#level55Modal">
                                     <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-blue.png" style="width:24px; height:24px;">
-                                    <small>Class B</small>
-                                  </button>
-                                  <button class="btn p-1 legend-grid-item" style="width: auto; padding-left: 0 !important;" data-bs-toggle="modal" data-bs-target="#level44Modal">
-                                    <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-purple.png" style="width:24px; height:24px;">
-                                    <small>Class C</small>
+                                    <small>Provincial Hospital</small>
                                   </button>
                               </div>
                             </div>
@@ -708,11 +704,11 @@
                               <div style="display: flex; flex-direction: row; align-items: flex-start; gap: 10px;">
                                   <button class="btn p-1 legend-grid-item" style="width: auto; padding-left: 0 !important;" data-bs-toggle="modal" data-bs-target="#level33Modal">
                                     <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-green.png" style="width:24px; height:24px;">
-                                    <small>Class D</small>
+                                    <small>Communal / Local Hospital</small>
                                   </button>
                                   <button class="btn p-1 legend-grid-item" style="width: auto; padding-left: 0 !important;" data-bs-toggle="modal" data-bs-target="#level11Modal">
                                       <img src="https://pg.concordreview.com/wp-content/uploads/2025/01/hospital_pin-tosca.png" style="width:24px; height:24px;">
-                                      <small>PUSKESMAS</small>
+                                      <small>Clinic / Health Centre</small>
                                   </button>
                               </div>
                             </div>
@@ -727,32 +723,17 @@
 
         <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#police6Modal">
             <img src="https://id.concordcmt.com/images/Layer1.png" alt="Polri HQ">
-            <small>National Police HQ (POLRI)</small>
+            <small>National Police HQ</small>
         </button>
 
         <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#police5Modal">
             <img src="https://id.concordcmt.com/images/Layer2.png" alt="Polda">
-            <small>Polda</small>
+            <small>Gendarmerie National</small>
         </button>
 
         <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#police4Modal">
             <img src="https://id.concordcmt.com/images/Layer3.png" alt="Polres">
-            <small>Polres</small>
-        </button>
-
-        <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#police3Modal">
-            <img src="https://id.concordcmt.com/images/Layer4.png" alt="Polsek">
-            <small>Polsek</small>
-        </button>
-
-        <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#police2Modal">
-            <img src="https://id.concordcmt.com/images/Brimob.png" alt="Brimob">
-            <small>Brimob</small>
-        </button>
-
-        <button class="btn p-1 legend-grid-item" data-bs-toggle="modal" data-bs-target="#police1Modal">
-            <img src="https://id.concordcmt.com/images/Gegana.png" alt="Gegana">
-            <small>Gegana</small>
+            <small>Municipality Police</small>
         </button>
 
     </div>
@@ -3260,8 +3241,8 @@ document.addEventListener('change', function(e) {
 
 <script>    // --- Map Initialization ---
     const map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: 6.9167, lng: 158.1667 },
-        zoom: 5,
+        center: { lat: -20.9043, lng: 165.6180 },
+        zoom: 7,
         mapTypeId: 'roadmap',
         mapTypeControl: true,
         fullscreenControl: true,
@@ -3987,7 +3968,7 @@ document.addEventListener('change', function(e) {
                 itemName = item.airport_name;
                 detailUrl = `/airports/${item.id}/detail`;
                 popupContent = `
-                    <h5 style="border-bottom:1px solid #cccccc;"><a href="${detailUrl}" style="color:inherit;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#1a73e8'" onmouseout="this.style.color='inherit'">${itemName}</a></h5>
+                    <h5 style="border-bottom:1px solid #cccccc;"><a href="${detailUrl}" target="_blank" style="color:inherit;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#1a73e8'" onmouseout="this.style.color='inherit'">${itemName}</a></h5>
                     <strong>Classification:</strong> ${item.category || 'N/A'}<br>
                     <strong>Address:</strong>
                         ${item.address || 'N/A'}
@@ -3999,7 +3980,7 @@ document.addEventListener('change', function(e) {
                 itemName = item.name;
                 detailUrl = `/hospitals/${item.id}`;
                 popupContent = `
-                    <h5 style="border-bottom:1px solid #cccccc;"><a href="${detailUrl}" style="color:inherit;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#1a73e8'" onmouseout="this.style.color='inherit'">${itemName}</a></h5>
+                    <h5 style="border-bottom:1px solid #cccccc;"><a href="${detailUrl}" target="_blank" style="color:inherit;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#1a73e8'" onmouseout="this.style.color='inherit'">${itemName}</a></h5>
                     <strong>Global Classification:</strong> ${item.facility_category || 'N/A'}<br>
                     <strong>Country Classification:</strong> ${item.facility_level || 'N/A'}<br>
                     <strong>Address:</strong>
@@ -4011,7 +3992,7 @@ document.addEventListener('change', function(e) {
                 itemName = item.name_police;
                 detailUrl = `/police/${item.id}/detail`;
                 popupContent = `
-                    <h5 style="border-bottom:1px solid #cccccc;"><a href="${detailUrl}" style="color:inherit;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#1a73e8'" onmouseout="this.style.color='inherit'">${itemName}</a></h5>
+                    <h5 style="border-bottom:1px solid #cccccc;"><a href="${detailUrl}" target="_blank" style="color:inherit;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#1a73e8'" onmouseout="this.style.color='inherit'">${itemName}</a></h5>
                     <strong>Category:</strong> ${item.category || 'N/A'}<br>
                     <strong>Address:</strong>
                         ${item.address || 'N/A'}
@@ -4027,7 +4008,7 @@ document.addEventListener('change', function(e) {
                 itemName = item.name_embassiees;
                 detailUrl = `/embassiees/${item.id}/detail`;
                 popupContent = `
-                    <h5 style="border-bottom:1px solid #cccccc;"><a href="${detailUrl}" style="color:inherit;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#1a73e8'" onmouseout="this.style.color='inherit'">${itemName}</a></h5>
+                    <h5 style="border-bottom:1px solid #cccccc;"><a href="${detailUrl}" target="_blank" style="color:inherit;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#1a73e8'" onmouseout="this.style.color='inherit'">${itemName}</a></h5>
                     <strong>Address:</strong>
                         ${item.address || 'N/A'}
                         ${item.city ? ', ' + item.city : ''}
@@ -4061,7 +4042,7 @@ document.addEventListener('change', function(e) {
                                 </svg>
                                 Get Directions
                             </button>
-                            <a href="${detailUrl}"
+                            <a href="${detailUrl}" target="_blank"
                                style="display:inline-flex;align-items:center;gap:5px;
                                       background:#395272;color:#fff;text-decoration:none;
                                       padding:5px 12px;border-radius:6px;font-size:12px;
@@ -4077,7 +4058,7 @@ document.addEventListener('change', function(e) {
                 } else if (detailUrl) {
                     directionsBtn = `
                         <div style="margin-top:8px;padding-top:8px;border-top:1px solid #eee;">
-                            <a href="${detailUrl}"
+                            <a href="${detailUrl}" target="_blank"
                                style="display:inline-flex;align-items:center;gap:5px;
                                       background:#395272;color:#fff;text-decoration:none;
                                       padding:5px 12px;border-radius:6px;font-size:12px;
@@ -4349,7 +4330,7 @@ document.addEventListener('change', function(e) {
                         <div class="facility-item">
                             <input class="form-check-input" type="checkbox" value="all" id="facilityAll">
                             <label class="form-check-label" for="facilityAll">
-                                <span class="facility-name is-all">All</span>
+                                <span class="facility-name is-all">All / Clear All</span>
                             </label>
                         </div>
 

@@ -1116,8 +1116,8 @@ document.addEventListener('DOMContentLoaded', function () {
 <script>
 // === Inisialisasi Peta ===
 const map = new google.maps.Map(document.getElementById('map'), {
-    center: { lat: 6.9167, lng: 158.1667 },
-    zoom: 5,
+    center: { lat: -20.9043, lng: 165.6180 },
+    zoom: 7,
     mapTypeId: 'roadmap',
     mapTypeControl: true,
     fullscreenControl: true,
