@@ -23,7 +23,7 @@
             <div class="form-group">
                 <label>Province</label>
                 <select class="form-control" name="province_id" id="province">
-                        <option value="0">-Choosse Province-</option>
+                        <option value="0">-Choose Province-</option>
                     @foreach($provinces as $prov)
                         <option value="{{$prov->id}}">{{$prov->provinces_region}}</option>
                     @endforeach
@@ -33,9 +33,9 @@
 
          <div class="col-md-12">
             <div class="form-group">
-                <label for="city">Regency / City</label>
+                <label for="city">Commune</label>
                 <select name="city" id="city" class="form-control">
-                    <option value="">-Choose Regency / City-</option>
+                    <option value="">-Choose Commune-</option>
                 </select>
             </div>
         </div>
@@ -93,39 +93,21 @@
 
                 <input type="hidden" name="icon" id="icon">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input category-radio" type="radio" name="category" value="Indonesian National Police (Polri) HQ" data-icon="{{ asset('images/Layer1.png') }}">
+                    <input class="form-check-input category-radio" type="radio" name="category" value="New Caledonian National Police (Polri) HQ" data-icon="{{ asset('images/Layer1.png') }}">
                     <img src="{{ asset('images/Layer1.png') }}" style="width:12px; height:12px;">
-                    <label class="form-check-label">Indonesian National Police (Polri) HQ</label>
+                    <label class="form-check-label">National Police HQ</label>
                 </div>
 
                 <div class="form-check form-check-inline">
                     <input class="form-check-input category-radio" type="radio" name="category" value="Provincial Police (Polda)" data-icon="{{ asset('images/Layer2.png') }}">
                     <img src="{{ asset('images/Layer2.png') }}" style="width:12px; height:12px;">
-                    <label class="form-check-label">Provincial Police (Polda)</label>
+                    <label class="form-check-label">Gendarmerie National</label>
                 </div>
 
                 <div class="form-check form-check-inline">
                     <input class="form-check-input category-radio" type="radio" name="category" value="Municipality Police (Polres)" data-icon="{{ asset('images/Layer3.png') }}">
                     <img src="{{ asset('images/Layer3.png') }}" style="width:12px; height:12px;">
-                    <label class="form-check-label">Municipality Police (Polres)</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input category-radio" type="radio" name="category" value="District Police (Polsek)" data-icon="{{ asset('images/Layer4.png') }}">
-                    <img src="{{ asset('images/Layer4.png') }}" style="width:12px; height:12px;">
-                    <label class="form-check-label">District Police (Polsek)</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input category-radio" type="radio" name="category" value="Police Mobile Brigade (Brimob)" data-icon="{{ asset('images/Brimob.png') }}">
-                    <img src="{{ asset('images/Brimob.png') }}" style="width:12px; height:12px;">
-                    <label class="form-check-label">Police Mobile Brigade (Brimob)</label>
-                </div>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input category-radio" type="radio" name="category" value="Police Bomb Squad (Gegana)" data-icon="{{ asset('images/Gegana.png') }}">
-                    <img src="{{ asset('images/Gegana.png') }}" style="width:12px; height:12px;">
-                    <label class="form-check-label">Police Bomb Squad (Gegana)</label>
+                    <label class="form-check-label">Municipality Police</label>
                 </div>
             </div>
         </div>
@@ -294,7 +276,7 @@ document.querySelectorAll('.category-radio').forEach(radio => {
                 type: 'GET',
                 success: function (data) {
                     $('#city').empty();
-                    $('#city').append('<option value="">-- Choosse Regency / City --</option>');
+                    $('#city').append('<option value="">-- Choosse Commune --</option>');
                     $.each(data, function (key, city) {
                         $('#city').append('<option value="' + city.id + '">' + city.city + '</option>');
                     });
@@ -302,7 +284,7 @@ document.querySelectorAll('.category-radio').forEach(radio => {
             });
         } else {
             $('#city').empty();
-            $('#city').append('<option value="">-- Choosse Regency / City  --</option>');
+            $('#city').append('<option value="">-- Choosse Commune  --</option>');
         }
     });
 </script>

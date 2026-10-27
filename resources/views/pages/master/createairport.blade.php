@@ -23,7 +23,7 @@
             <div class="form-group">
                 <label>Province</label>
                 <select class="form-control" name="province_id" id="province">
-                        <option value="0">-Choosse Province-</option>
+                        <option value="0">-Choose Province-</option>
                     @foreach($provinces as $prov)
                         <option value="{{$prov->id}}">{{$prov->provinces_region}}</option>
                     @endforeach
@@ -33,9 +33,9 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <label for="city">City/Regency</label>
+                <label for="city">Commune</label>
                 <select name="city" id="city" class="form-control">
-                    <option value="">-Choosse City/Regency-</option>
+                    <option value="">-Choosse Commune-</option>
                 </select>
             </div>
         </div>
@@ -982,7 +982,7 @@
                 type: 'GET',
                 success: function (data) {
                     $('#city').empty();
-                    $('#city').append('<option value="">-- Choosse City/Regency --</option>');
+                    $('#city').append('<option value="">-- Choosse Commune --</option>');
                     $.each(data, function (key, city) {
                         $('#city').append('<option value="' + city.id + '">' + city.city + '</option>');
                     });
@@ -990,7 +990,7 @@
             });
         } else {
             $('#city').empty();
-            $('#city').append('<option value="">-- Choosse City/Regency  --</option>');
+            $('#city').append('<option value="">-- Choosse Commune  --</option>');
         }
     });
 </script>

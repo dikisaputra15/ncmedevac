@@ -24,7 +24,7 @@
             <div class="form-group">
                 <label>Province</label>
                 <select class="form-control" name="province_id" id="province">
-                        <option value="0">-Choosse Provinces Region-</option>
+                        <option value="0">-Choosse Province-</option>
                     @foreach($provinces as $prov)
                         <option value="{{$prov->id}}">{{$prov->provinces_region}}</option>
                     @endforeach
@@ -34,9 +34,9 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <label for="city">City/Regency</label>
+                <label for="city">Commune</label>
                 <select name="city" id="city" class="form-control">
-                    <option value="">-Choosse City/Regency-</option>
+                    <option value="">-Choosse Commune-</option>
                 </select>
             </div>
         </div>
@@ -65,20 +65,17 @@
             <div class="form-group">
                 <label>Facility Level</label>
                 <select class="form-control" name="facility_level">
-                    <option value="Class A">
-                        Class A
+                    <option value="Territorial Hospital">
+                       Territorial Hospital
                     </option>
-                    <option value="Class B">
-                        Class B
+                    <option value="Provincial Hospital">
+                        Provincial Hospital
                     </option>
-                    <option value="Class C">
-                        Class C
+                    <option value="Local / Communal Hospital">
+                        Local / Communal Hospital
                     </option>
-                    <option value="Class D">
-                        Class D
-                    </option>
-                    <option value="Public Health Center (PUSKESMAS)">
-                        Public Health Center (PUSKESMAS)
+                    <option value="Clinic / Health Centre">
+                        Clinic / Health Centre
                     </option>
                 </select>
             </div>
@@ -907,7 +904,7 @@
                 type: 'GET',
                 success: function (data) {
                     $('#city').empty();
-                    $('#city').append('<option value="">-- Choosse City/Regency --</option>');
+                    $('#city').append('<option value="">-- Choosse Commune --</option>');
                     $.each(data, function (key, city) {
                         $('#city').append('<option value="' + city.id + '">' + city.city + '</option>');
                     });
@@ -915,7 +912,7 @@
             });
         } else {
             $('#city').empty();
-            $('#city').append('<option value="">-- Choosse City/Regency  --</option>');
+            $('#city').append('<option value="">-- Choosse Commune  --</option>');
         }
     });
 </script>

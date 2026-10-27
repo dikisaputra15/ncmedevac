@@ -29,8 +29,8 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>Province</label>
-                <select class="form-control" name="province_id">
+                <label>Edit Province</label>
+                <select class="form-control" name="province_id" id="province">
                     <?php
                         foreach ($provinces as $prov) {
 
@@ -51,7 +51,7 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <label>Edit City / Regency</label>
+                <label>Edit Commune</label>
                 <select class="form-control" name="city" id="city">
                     <?php
                         foreach ($cities as $city) {
@@ -88,17 +88,17 @@
             <div class="form-group">
                 <label>Edit Facility Level</label>
                 <select class="form-control" name="facility_level">
-                    <option value="Class A" {{ old('facility_level', $hospital->facility_level ?? '') == 'Class A' ? 'selected' : '' }}>
-                        Class A
+                    <option value="Territorial Hospital" {{ old('facility_level', $hospital->facility_level ?? '') == 'Territorial Hospital' ? 'selected' : '' }}>
+                        Territorial Hospital
                     </option>
-                    <option value="Class B" {{ old('facility_level', $hospital->facility_level ?? '') == 'Class B' ? 'selected' : '' }}>
-                        Class B
+                    <option value="Provincial Hospital" {{ old('facility_level', $hospital->facility_level ?? '') == 'Provincial Hospital' ? 'selected' : '' }}>
+                        Provincial Hospital
                     </option>
-                    <option value="Class C" {{ old('facility_level', $hospital->facility_level ?? '') == 'Class C' ? 'selected' : '' }}>
-                        Class C
+                    <option value="Local / Communal Hospital" {{ old('facility_level', $hospital->facility_level ?? '') == 'Local / Communal Hospital' ? 'selected' : '' }}>
+                        Local / Communal Hospital
                     </option>
-                    <option value="Class D" {{ old('facility_level', $hospital->facility_level ?? '') == 'Class D' ? 'selected' : '' }}>
-                        Class D
+                    <option value="Clinic / Health Centre" {{ old('facility_level', $hospital->facility_level ?? '') == 'Clinic / Health Centre' ? 'selected' : '' }}>
+                        Clinic / Health Centre
                     </option>
                     <option value="Public Health Center (PUSKESMAS)" {{ old('facility_level', $hospital->facility_level ?? '') == 'Public Health Center (PUSKESMAS)' ? 'selected' : '' }}>
                         Public Health Center (PUSKESMAS)
@@ -143,11 +143,10 @@
 
                 @php
                     $icons = [
-                        ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital-pin-red.png', 'label' => 'Class A'],
-                        ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-blue.png', 'label' => 'Class B'],
-                        ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-purple.png', 'label' => 'Class C'],
-                        ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-green.png', 'label' => 'Class D'],
-                        ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-tosca.png', 'label' => 'Public Health Center (PUSKESMAS)'],
+                        ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital-pin-red.png', 'label' => 'Territorial Hospital'],
+                        ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-blue.png', 'label' => 'Provincial Hospital'],
+                        ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-purple.png', 'label' => 'Local / Communal Hospital'],
+                        ['url' => 'https://id.concordreview.com/wp-content/plugins/w2gm/resources/images/map_icons/icons/_new/hospital_pin-green.png', 'label' => 'Clinic / Health Centre'],
                     ];
                 @endphp
 
@@ -1030,7 +1029,7 @@
                 type: 'GET',
                 success: function (data) {
                     $('#city').empty();
-                    $('#city').append('<option value="">-- Choosse City/Regency --</option>');
+                    $('#city').append('<option value="">-- Choosse Commune --</option>');
                     $.each(data, function (key, city) {
                         $('#city').append('<option value="' + city.id + '">' + city.city + '</option>');
                     });
@@ -1038,7 +1037,7 @@
             });
         } else {
             $('#city').empty();
-            $('#city').append('<option value="">-- Choosse City/Regency  --</option>');
+            $('#city').append('<option value="">-- Choosse Commune  --</option>');
         }
     });
 </script>
