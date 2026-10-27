@@ -614,6 +614,155 @@
     }
 }
 
+    .dashboard-legend-sidebar.dashboard-classifications {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        background: #fff;
+    }
+    .dashboard-classification-group {
+      max-width: 100%;
+      min-width: 0;
+      overflow-x: auto;
+    }
+    .dashboard-classification-group > .class-header,
+    .dashboard-classification-group > div > .class-medical-classification {
+      margin-bottom: 8px;
+      padding: 0;
+      line-height: 20px;
+      text-align: left;
+    }
+    .dashboard-classifications .airport-list {
+      align-items: flex-start;
+      padding: 0;
+    }
+    .dashboard-classifications .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 6px;
+      min-height: 30px;
+      padding: 3px 0 !important;
+      white-space: nowrap;
+      text-align: left;
+    }
+    .dashboard-classifications .btn small {
+      font-size: 12px;
+      line-height: 18px;
+    }
+    .dashboard-classifications .btn img {
+      flex-shrink: 0;
+      object-fit: contain;
+    }
+    .dashboard-medical-levels {
+      display: grid;
+      grid-template-columns: repeat(3, max-content);
+      gap: 0;
+    }
+    .dashboard-medical-levels .class-column:not(:last-child) > div {
+      padding-right: 16px;
+    }
+    .dashboard-medical-levels .class-header {
+      margin-bottom: 4px;
+      padding-top: 0;
+      padding-bottom: 5px;
+      padding-left: 0;
+      line-height: 20px;
+    }
+    .dashboard-legend-panel { width: 100%; border: 1px solid #d6dee8; border-radius: 9px; background: #fff; color: #19334e; overflow: hidden; }
+    .dashboard-legend-panel summary,
+    .dashboard-legend-disclaimer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px; font-size: 13px; font-weight: 700; cursor: pointer; list-style: none; }
+    .dashboard-legend-disclaimer { min-height: 50px; text-align: left; font-family: inherit; }
+    .dashboard-legend-panel summary::-webkit-details-marker { display: none; }
+    .dashboard-legend-panel summary:hover,
+    .dashboard-legend-disclaimer:hover { background: #f5f8fb; }
+    .dashboard-legend-panel summary:focus-visible,
+    .dashboard-legend-disclaimer:focus-visible { outline: 2px solid #346abb; outline-offset: -3px; }
+    .legend-toggle { display: grid; place-items: center; width: 22px; height: 22px; border: 1px solid #bbc7d5; border-radius: 50%; flex-shrink: 0; }
+    .legend-toggle::before { content: '+'; font-size: 17px; font-weight: 400; }
+    .dashboard-legend-panel[open] .legend-toggle::before { content: '\00d7'; }
+    .dashboard-legend-panel[open] summary { border-bottom: 1px solid #d6dee8; }
+    .dashboard-legend-panel .dashboard-classification-group { padding: 12px; overflow: visible; }
+    .dashboard-legend-panel .class-header { font-size: 12px; text-align: left; }
+    .dashboard-legend-panel .airport-list > div { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; gap: 4px !important; }
+    .dashboard-legend-panel .airport-list > div > div:empty { display: none; }
+    .dashboard-legend-panel .dashboard-medical-levels { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+    .dashboard-legend-panel .dashboard-medical-levels .class-column > div { padding-right: 0; }
+    .dashboard-legend-panel .dashboard-medical-levels .class-column > div:not(.class-header) { flex-direction: column !important; gap: 4px !important; }
+    .dashboard-legend-panel .btn { white-space: normal; width: 100%; }
+    .dashboard-legend-panel .btn small { text-align: left; }
+
+    .dashboard-map-layout {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+        align-items: start;
+    }
+    .dashboard-content-column {
+        display: none;
+        background: #fff;
+    }
+    .dashboard-map-layout #map .gm-style-mtc {
+        margin-top: 60px !important;
+    }
+    .dashboard-map-layout.is-content-open {
+        grid-template-columns: 240px minmax(0, 1fr);
+        gap: 12px;
+    }
+    .dashboard-map-layout.is-content-open .dashboard-content-column {
+        display: block;
+        width: 240px;
+    }
+    .dashboard-map-stage { position: relative; min-width: 0; }
+    .dashboard-content-toggle {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        width: 115px;
+        min-height: 40px;
+        padding: 9px 12px;
+        border: 1px solid #bbc7d5;
+        border-radius: 7px;
+        background: #fff;
+        color: #19334e;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+    }
+    .dashboard-content-toggle:hover { background: #f5f8fb; }
+    .dashboard-content-toggle[aria-expanded="true"] {
+        width: 30px;
+        min-height: 34px;
+        padding: 6px;
+        justify-content: center;
+        margin-left: auto;
+        font-size: 20px;
+    }
+    .dashboard-content-toggle[aria-expanded="true"] .content-info-label { display: none; }
+    .dashboard-content-toggle:focus-visible { outline: 2px solid #346abb; }
+    .dashboard-map-layout .dashboard-legend-sidebar {
+        width: 100%;
+        margin-top: 0;
+        padding: 0;
+    }
+    .dashboard-map-layout .dashboard-legend-sidebar[hidden] { display: none; }
+    .dashboard-map-layout #routePanel { left: 10px !important; }
+    @media (max-width: 767px) {
+        .dashboard-map-layout,
+        .dashboard-map-layout.is-content-open { grid-template-columns: minmax(0, 1fr); }
+        .dashboard-map-layout.is-content-open .dashboard-content-column { width: 100%; }
+    }
+
+.dashboard-classifications .class-column { margin: 0 !important; text-align: left; }
+.dashboard-classifications .legend-grid { grid-template-columns: minmax(0, 1fr); }
+.dashboard-classifications .airport-list { padding: 0; }
+
 </style>
 
 @endpush
@@ -622,12 +771,40 @@
 
 <div class="card">
     <div class="row" style="background-color: #dfeaf1;">
-        <div class="col-md-9">
-            <div class="d-flex p-3" style="justify-content: center;">
-                <div class="d-flex gap-2">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-end p-3">
+                <div class="d-flex gap-2 mt-2">
 
-                <!-- Airport -->
-                      <div class="class-column" style="margin-right: 100px;">
+                    <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
+                        <i class="bi bi-airplane fs-3"></i>
+                        <small>Aviation</small>
+                    </a>
+
+                    <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
+                    <img src="{{ asset('images/icon-medical.png') }}" style="width: 24px; height: 24px;">
+                        <small>Medical</small>
+                    </a>
+
+                    <a href="{{ url('police') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('police') ? 'active' : '' }}">
+                    <i class="bi bi-person-badge" style="width: 24px; height: 24px;"></i>
+                        <small>Police</small>
+                    </a>
+
+                    <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees') ? 'active' : '' }}">
+                    <img src="{{ asset('images/icon-embassy.png') }}" style="width: 24px; height: 24px;">
+                        <small>Embassies</small>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="dashboard-map-layout">
+<div class="dashboard-content-column"><aside id="dashboardContentInfo" class="dashboard-legend-sidebar dashboard-classifications" aria-label="Map classifications" hidden>
+<details class="dashboard-legend-panel"><summary>Aviation<span class="legend-toggle" aria-hidden="true"></span></summary><div class="dashboard-classification-group"><!-- Airport -->
+                      <div class="class-column" >
 
                         <div class="airport-list" style="align-items:start;">
 
@@ -667,15 +844,14 @@
                           </div>
 
                         </div>
-                      </div>
-
-                      <!-- Medical Facility Legend -->
+                      </div></div></details>
+<details class="dashboard-legend-panel"><summary>Medical Facilities<span class="legend-toggle" aria-hidden="true"></span></summary><div class="dashboard-classification-group"><!-- Medical Facility Legend -->
                       <div style="flex-direction: column;">
                         <!-- Title -->
                         <div>
                             <div class="class-header class-medical-classification" style="text-align:left;">Medical Facility Classification</div>
                         </div>
-                        <div style="display: flex; flex-direction: row;">
+                        <div class="dashboard-medical-levels">
                             <!-- Advanced -->
                             <div class="class-column" style="align-items: flex-start; text-align: left;">
                               <div class="class-header class-advanced">Advanced</div>
@@ -713,9 +889,8 @@
                               </div>
                             </div>
                         </div>
-                      </div>
-
-                      <div class="class-column" style="margin-left: 50px;">
+                      </div></div></details>
+<details class="dashboard-legend-panel"><summary>Police<span class="legend-toggle" aria-hidden="true"></span></summary><div class="dashboard-classification-group"><div class="class-column" >
 
                         <div class="airport-list" style="align-items:start;">
                              <div class="class-header class-airport-category">POLICE CLASSIFICATION</div>
@@ -739,49 +914,10 @@
     </div>
 </div>
 
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="d-flex justify-content-end p-3">
-                <div class="d-flex gap-2 mt-2">
-
-                    <a href="{{ url('airports') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('airports') ? 'active' : '' }}">
-                        <i class="bi bi-airplane fs-3"></i>
-                        <small>Aviation</small>
-                    </a>
-
-                    <a href="{{ url('hospital') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('hospital') ? 'active' : '' }}">
-                    <img src="{{ asset('images/icon-medical.png') }}" style="width: 24px; height: 24px;">
-                        <small>Medical</small>
-                    </a>
-
-                    <a href="{{ url('police') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('police') ? 'active' : '' }}">
-                    <i class="bi bi-person-badge" style="width: 24px; height: 24px;"></i>
-                        <small>Police</small>
-                    </a>
-
-                    <a href="{{ url('embassiees') }}" class="btn btn-danger d-flex flex-column align-items-center p-3 {{ request()->is('embassiees') ? 'active' : '' }}">
-                    <img src="{{ asset('images/icon-embassy.png') }}" style="width: 24px; height: 24px;">
-                        <small>Embassies</small>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-12">
-        <button class="btn btn-link p-0 fw-bold text-decoration-underline text-dark" data-bs-toggle="modal" data-bs-target="#disclaimerModal">
-            <i class="bi bi-info-circle text-primary fs-5"></i>
-            <small>Disclaimer</small>
-        </button>
-    </div>
-
-</div>
-
-<div style="position:relative;">
+                    </div></div></details>
+</aside></div>
+<div class="dashboard-map-stage">
+<button type="button" class="dashboard-content-toggle" aria-expanded="false" aria-controls="dashboardContentInfo" aria-label="Open Content Info"><span class="content-info-label">Content Info</span><span aria-hidden="true">&#8250;</span></button>
 
 <div id="map"></div>
 
@@ -827,20 +963,6 @@
 
 </div>
 
-<div class="modal fade" id="disclaimerModal" tabindex="-1" aria-labelledby="disclaimerLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="disclaimerLabel">Disclaimer</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-       <p class="p-modal text-justify">Every attempt has been made to ensure the completeness and accuracy of the most updated information and data available. Clients are advised, however, that provided information, and data is subject to change.</p>
-       <h5 class="modal-title" id="disclaimerLabel">Google Maps Link</h5>
-       <p class="p-modal text-justify">Google Maps may automatically display or translate content based on the user’s current region, browser settings, or Google account preferences. This issue may occur when opening google maps link from TCMT platform using Microsoft Edge. For the best experience, we recommend opening the Google Chrome link while logged into your Google account. You can also use your browser’s translation feature to view Google Maps in your preferred language.</p>
-      </div>
-    </div>
-  </div>
 </div>
 
 <div class="modal fade" id="police1Modal" tabindex="-1" aria-labelledby="geganaLabel" aria-hidden="true">
@@ -3186,6 +3308,29 @@ document.addEventListener('DOMContentLoaded', function () {
 @endsection
 
 @push('service')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggle = document.querySelector('.dashboard-content-toggle');
+        const panel = document.getElementById('dashboardContentInfo');
+        if (!toggle || !panel) return;
+        function setContentInfoOpen(open) {
+            panel.hidden = !open;
+            toggle.closest('.dashboard-map-layout').classList.toggle('is-content-open', open);
+            toggle.setAttribute('aria-expanded', String(open));
+            toggle.setAttribute('aria-label', open ? 'Close Content Info' : 'Open Content Info');
+            toggle.querySelector('[aria-hidden]').textContent = open ? '\u2039' : '\u203a';
+        }
+        toggle.addEventListener('click', function () {
+            setContentInfoOpen(toggle.getAttribute('aria-expanded') !== 'true');
+        });
+        panel.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                setContentInfoOpen(false);
+                toggle.focus();
+            }
+        });
+    });
+</script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCd-WVlGgZFJwAtPZkbAEca2Np6OI7CBTM&libraries=places,geometry,drawing"></script>
 
