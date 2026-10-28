@@ -1816,7 +1816,7 @@ combinedPanelDiv.innerHTML = `
                 @endforeach
             </select>
             <label>Facility Level:</label>
-            ${['Class A','Class B','Class C','Class D','Public Health Center (PUSKESMAS)'].map(c => `
+            ${['Territorial Hospital','Provincial Hospital','Local / Communal Hospital','Clinic / Health Centre'].map(c => `
             <label style="display:block;font-size:13px;margin-bottom:5px;">
                 <input type="checkbox" name="hospitalLevel" value="${c}">
                 ${c} (<span id="count-${c.replace(/\s+/g,'-')}">0</span>)
@@ -2166,7 +2166,7 @@ setTimeout(() => {
 // Retry sampai badge kategori (di dalam combinedPanelDiv) benar-benar ada di DOM,
 // supaya jumlah per kategori tidak "nyangkut" di 0 saat load pertama.
 function initialApplyFilters() {
-    if (!document.getElementById('count-Class-A')) {
+    if (!document.querySelector('#filterPanel input[name="hospitalLevel"]')) {
         setTimeout(initialApplyFilters, 200);
         return;
     }

@@ -14,6 +14,12 @@ use Exception;
 
 class PoliceController extends Controller
 {
+    private const CATEGORY_ALIASES = [
+        'National Police HQ' => ['National Police HQ', 'New Caledonian National Police (Polri) HQ'],
+        'Gendarmerie National' => ['Gendarmerie National', 'Provincial Police (Polda)'],
+        'Municipality Police' => ['Municipality Police', 'Municipality Police (Polres)'],
+    ];
+
      public function index(Request $request)
     {
         // Using `unique()` and `values()` on collections ensures distinct, sorted results.
@@ -58,7 +64,9 @@ class PoliceController extends Controller
                         $sub->orWhere('category', 'LIKE', "%Police Mobil Brigade (Brimob)%")
                             ->orWhere('category', 'LIKE', "%Police Mobile Brigade (Brimob)%");
                     } else {
-                        $sub->orWhere('category', 'LIKE', "%{$category}%");
+                        foreach (self::CATEGORY_ALIASES[$category] ?? [$category] as $alias) {
+                            $sub->orWhere('category', 'LIKE', "%{$alias}%");
+                        }
                     }
                 }
             });
@@ -157,14 +165,7 @@ class PoliceController extends Controller
 
         // Execute the query and return JSON response
         $polices = $query->get();
-        $categoryCounts = [
-            'New Caledonian National Police (Polri) HQ' => 0,
-            'Provincial Police (Polda)' => 0,
-            'Municipality Police (Polres)' => 0,
-            'District Police (Polsek)' => 0,
-            'Police Mobile Brigade (Brimob)' => 0,
-            'Police Bomb Squad (Gegana)' => 0,
-        ];
+        $categoryCounts = array_fill_keys(array_keys(self::CATEGORY_ALIASES), 0);
 
         foreach ($polices as $police) {
 
@@ -174,13 +175,9 @@ class PoliceController extends Controller
 
             $cats = array_map('trim', explode(',', $police->category));
 
-            foreach ($cats as $cat) {
-                if ($cat === 'Police Mobil Brigade (Brimob)') {
-                    $cat = 'Police Mobile Brigade (Brimob)';
-                }
-
-                if (isset($categoryCounts[$cat])) {
-                    $categoryCounts[$cat]++;
+            foreach (self::CATEGORY_ALIASES as $category => $aliases) {
+                if (array_intersect($cats, $aliases)) {
+                    $categoryCounts[$category]++;
                 }
             }
         }
