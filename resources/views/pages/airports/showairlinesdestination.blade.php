@@ -176,7 +176,7 @@
     <!-- Kolom kiri dengan 3 card -->
     <div class="col-md-3">
         <div class="card mb-3">
-            <div class="card-header fw-bold"><img src="{{ asset('images/indodomestic.jpeg') }}" style="width: 30px; height: 30px;"> Domestic</div>
+            <div class="card-header fw-bold"><img src="{{ asset('AdminLTE/plugins/flag-icon-css/flags/4x3/nc.svg') }}" alt="New Caledonia flag" width="30" height="23"> Domestic</div>
             <div class="card-body overflow-auto" style="max-height: 300px;">
                 <?php echo $airport->domestic_flights; ?>
             </div>
@@ -251,7 +251,7 @@
                 </div>
 
             <div class="card-body overflow-auto">
-                <iframe src="https://globe.adsbexchange.com/?lat=-6.2&lon=106.8&zoom=7" width="100%" height="600" frameborder="0"></iframe>
+                <iframe src="https://globe.adsbexchange.com/?lat=-22.014444&amp;lon=166.213056&amp;zoom=7" width="100%" height="600" frameborder="0"></iframe>
             </div>
         </div>
     </div>
