@@ -1765,6 +1765,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const nearbyHospitals = @json($nearbyHospitals);
     const nearbyAirports = @json($nearbyAirports);
     const nearbyPolices = @json($nearbyPolices);
+    @include('components.map-modals.police-category-matching')
     const nearbyEmbassy = @json($nearbyEmbassy);
     let radiusKm = 100; // default radius
 
@@ -1898,9 +1899,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Filter hospital
             if (type === 'Hospital' && filters.hospitalLevels?.length > 0) {
-                const level = (item.facility_level || '').toLowerCase();
+                const levels = (item.facility_level || '').split(',').map(level => level.trim().toLowerCase());
                 const allowed = filters.hospitalLevels.map(l => l.toLowerCase());
-                if (!allowed.includes(level)) return;
+                if (!levels.some(level => allowed.includes(level))) return;
             }
 
             // Filter airport
@@ -1911,11 +1912,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Filter police
-            if (type === 'Police' && filters.policeCategories?.length > 0) {
-                const categories = (item.category || '').split(',').map(c => c.trim().toLowerCase());
-                const allowed = filters.policeCategories.map(c => c.toLowerCase());
-                if (!categories.some(cat => allowed.includes(cat))) return;
-            }
+            if (type === 'Police' && !matchesPoliceCategories(item, filters.policeCategories)) return;
 
             const isPolice = type === 'Police';
             const iconSize = isPolice ? new google.maps.Size(12, 12) : new google.maps.Size(24, 24);
@@ -2221,11 +2218,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </select>
 
             <div id="hospitalFilter" style="display:none;">
-                <strong>Facility Level:</strong><br>
-                ${['Class A','Class B','Class C','Class D','Public Health Center (PUSKESMAS)']
-                    .map(lvl => `<label style="display:block;font-size:13px;">
-                        <input type="checkbox" name="hospitalLevel" value="${lvl}"> ${lvl}
-                    </label>`).join('')}
+                @include('components.map-modals.hospital-level-filter')
             </div>
 
             <div id="airportFilter" style="display:none;margin-top:8px;">
@@ -2237,19 +2230,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
 
             <div id="policeFilter" style="display:none;margin-top:8px;">
-                <strong>Police Category:</strong><br>
-                ${[
-                    'New Caledonian National Police (Polri) HQ',
-                    'Provincial Police (Polda)',
-                    'Municipality Police (Polres)',
-                    'District Police (Polsek)',
-                    'Police Mobile Brigade (Brimob)',
-                    'Police Bomb Squad (Gegana)'
-                ].map(cat => `
-                    <label style="display:block;font-size:13px;">
-                        <input type="checkbox" name="policeCategory" value="${cat}"> ${cat}
-                    </label>
-                `).join('')}
+                @include('components.map-modals.police-category-filter')
             </div>
 
             <button id="resetFilter" class="btn btn-sm btn-secondary mt-3 w-100">Reset Filter</button>
@@ -2269,7 +2250,7 @@ document.addEventListener('DOMContentLoaded', () => {
         radiusSlider.addEventListener('input', () => {
             radiusKm = parseInt(radiusSlider.value);
             radiusLabel.textContent = radiusKm;
-            refreshFilters();
+            refresh();
         });
 
         const filterSelect = container.querySelector('#mapFilter');
@@ -2280,6 +2261,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function refresh() {
             const selectedType = filterSelect.value;
+            if (selectedType === 'hospital') {
+                const levelsWithinRadius = nearbyHospitals
+                    .filter(item => calculateDistance(hospitalData.latitude, hospitalData.longitude, item.latitude, item.longitude) <= radiusKm)
+                    .map(item => (item.facility_level || '').split(',').map(level => level.trim().toLowerCase()));
+
+                hospitalDiv.querySelectorAll('[data-hospital-level-count]').forEach(count => {
+                    const level = count.dataset.hospitalLevelCount.toLowerCase();
+                    count.textContent = levelsWithinRadius.filter(levels => levels.includes(level)).length;
+                });
+            }
+
+            if (selectedType === 'police') {
+                const policeWithinRadius = nearbyPolices.filter(item =>
+                    calculateDistance(hospitalData.latitude, hospitalData.longitude, item.latitude, item.longitude) <= radiusKm
+                );
+
+                policeDiv.querySelectorAll('[data-police-category-count]').forEach(count => {
+                    const category = count.dataset.policeCategoryCount;
+                    count.textContent = policeWithinRadius.filter(item => matchesPoliceCategories(item, [category])).length;
+                });
+            }
+
             const selectedHospitalLevels = Array.from(container.querySelectorAll('input[name="hospitalLevel"]:checked')).map(el => el.value);
             const selectedAirportClasses = Array.from(container.querySelectorAll('input[name="airportClass"]:checked')).map(el => el.value);
             const selectedPoliceCategories = Array.from(container.querySelectorAll('input[name="policeCategory"]:checked')).map(el => el.value);
@@ -2329,14 +2332,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         return container;
-    }
-
-    function refreshFilters() {
-        const selectedType = document.querySelector('#mapFilter')?.value || 'all';
-        const selectedHospitalLevels = Array.from(document.querySelectorAll('input[name="hospitalLevel"]:checked')).map(el => el.value);
-        const selectedAirportClasses = Array.from(document.querySelectorAll('input[name="airportClass"]:checked')).map(el => el.value);
-        const selectedPoliceCategories = Array.from(document.querySelectorAll('input[name="policeCategory"]:checked')).map(el => el.value);
-        updateMarkers(selectedType, selectedHospitalLevels, selectedAirportClasses, selectedPoliceCategories);
     }
 
     // === SEARCH LOCATION CONTROL (now part of the filter panel) ===

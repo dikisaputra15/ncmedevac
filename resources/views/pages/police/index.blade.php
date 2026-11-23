@@ -2100,6 +2100,8 @@ function addPoliceMarkers(data) {
         map.fitBounds(bounds, 50);
 }
 
+@include('components.map-modals.police-category-matching')
+
 // === Apply Filter POLICE ===
 async function applyPoliceFilters() {
     const provs = [...document.querySelectorAll('.province-checkbox:checked')].map(e => e.value);
@@ -2111,7 +2113,6 @@ async function applyPoliceFilters() {
 
     if (policeName) filters.name = policeName;
     if (provs.length > 0) filters.provinces = provs;
-    if (categories.length > 0) filters.categories = categories;
 
     if (radius > 0 && lastClickedLocation) {
         filters.radius = radius;
@@ -2121,7 +2122,7 @@ async function applyPoliceFilters() {
 
     const result = await fetchPoliceData(filters);
 
-    const polices = result.polices;
+    const polices = result.polices.filter(item => matchesPoliceCategories(item, categories));
     const categoryCounts = result.categoryCounts;
 
     addPoliceMarkers(polices);
@@ -2129,15 +2130,8 @@ async function applyPoliceFilters() {
     document.getElementById('totalCountDisplay').innerHTML =
         `<strong>Police:</strong> ${polices.length}`;
 
-    Object.keys(categoryCounts).forEach(cat => {
-
-        const id = cat.replace(/[^a-zA-Z0-9]/g,'-');
-
-        const el = document.getElementById(`count-${id}`);
-
-        if (el) {
-            el.textContent = categoryCounts[cat];
-        }
+    document.querySelectorAll('[data-police-category-count]').forEach(count => {
+        count.textContent = categoryCounts[count.dataset.policeCategoryCount] ?? 0;
     });
 }
 
@@ -2200,17 +2194,7 @@ combinedPanelDiv.innerHTML = `
                     <option value="{{ $n }}">{{ $n }}</option>
                 @endforeach
             </select>
-            <label>Category:</label>
-            ${[
-                'National Police HQ',
-                'Gendarmerie National',
-                'Municipality Police'
-            ].map(c => `
-            <label style="display:block;font-size:13px;margin-bottom:5px;">
-                <input type="checkbox" name="policeCategory" value="${c}">
-                ${c} (<span id="count-${c.replace(/[^a-zA-Z0-9]/g,'-')}">0</span>)
-            </label>
-            `).join('')}
+            @include('components.map-modals.police-category-filter')
             <hr>
             <div class="filter-box" id="provinceSelect">
                 <label class="filter-label">Province</label>

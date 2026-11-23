@@ -1182,15 +1182,8 @@ async function applyHospitalFilters() {
     addHospitalMarkers(filteredHospitals);
     document.getElementById('totalCountDisplay').innerHTML = `<strong>Hospitals:</strong> ${filteredHospitals.length}`;
 
-    Object.keys(levelCounts).forEach(level => {
-
-        const id = level.replace(/\s+/g, '-');
-
-        const el = document.getElementById(`count-${id}`);
-
-        if (el) {
-            el.textContent = levelCounts[level];
-        }
+    document.querySelectorAll('[data-hospital-level-count]').forEach(count => {
+        count.textContent = levelCounts[count.dataset.hospitalLevelCount] ?? 0;
     });
 }
 
@@ -1253,13 +1246,7 @@ combinedPanelDiv.innerHTML = `
                     <option value="{{ $n }}">{{ $n }}</option>
                 @endforeach
             </select>
-            <label>Facility Level:</label>
-            ${['Territorial Hospital','Provincial Hospital','Local / Communal Hospital','Clinic / Health Centre'].map(c => `
-            <label style="display:block;font-size:13px;margin-bottom:5px;">
-                <input type="checkbox" name="hospitalLevel" value="${c}">
-                ${c} (<span id="count-${c.replace(/\s+/g,'-')}">0</span>)
-            </label>
-            `).join('')}
+            @include('components.map-modals.hospital-level-filter')
             <hr>
             <div class="filter-box" id="provinceSelect">
                 <label class="filter-label">Province</label>

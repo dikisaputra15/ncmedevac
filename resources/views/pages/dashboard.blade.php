@@ -3023,6 +3023,8 @@ document.addEventListener('change', function(e) {
     }
 
     // --- Apply Filters ---
+    @include('components.map-modals.police-category-matching')
+
     async function applyFiltersWithMapControl(
         facilities = [],
         hospitalLevels = [],
@@ -3051,17 +3053,33 @@ document.addEventListener('change', function(e) {
         const showPolice = facilities.includes('police');
         const showEmbassy = facilities.includes('embassy');
 
-         // === HOSPITALS ===
+        const policeFilter = document.getElementById('policeFilter');
+        if (policeFilter) policeFilter.hidden = !showPolice;
+        const policeCategories = [...document.querySelectorAll('#policeFilter input[name="policeCategory"]:checked')]
+            .map(input => input.value);
+
+        // === HOSPITALS ===
+        const hospitalFilter = document.getElementById('hospitalFilter');
+        if (hospitalFilter) hospitalFilter.hidden = !showHospital;
+
         if (showHospital) {
-             const result = await fetchData('/api/hospital', {
+            const result = await fetchData('/api/hospital', {
                 ...common,
-                name: hospitalName,
-                category: hospitalLevels
+                name: hospitalName
             });
 
-            addMarkers(result.hospitals, hospitalMarkers, null);
+            const selectedLevels = hospitalLevels.map(level => level.toLowerCase());
+            const hospitals = result.hospitals.filter(hospital => {
+                if (selectedLevels.length === 0) return true;
+                const levels = (hospital.facility_level || '').split(',').map(level => level.trim().toLowerCase());
+                return levels.some(level => selectedLevels.includes(level));
+            });
 
-            totalHospitals = result.hospitals.length;
+            hospitalFilter?.querySelectorAll('[data-hospital-level-count]').forEach(count => {
+                count.textContent = result.levelCounts[count.dataset.hospitalLevelCount] ?? 0;
+            });
+            addMarkers(hospitals, hospitalMarkers, null);
+            totalHospitals = hospitals.length;
         } else {
             clearMarkers(hospitalMarkers);
         }
@@ -3116,7 +3134,7 @@ document.addEventListener('change', function(e) {
                 ...common
             });
 
-            const police = result.polices || [];
+            const police = (result.polices || []).filter(item => matchesPoliceCategories(item, policeCategories));
             const categoryCounts = result.categoryCounts || {};
 
             addMarkers(
@@ -3127,15 +3145,8 @@ document.addEventListener('change', function(e) {
 
             totalPolice = police.length;
 
-            Object.keys(categoryCounts).forEach(cat => {
-
-                const id = cat.replace(/[^a-zA-Z0-9]/g, '-');
-
-                const el = document.getElementById(`count-${id}`);
-
-                if (el) {
-                    el.textContent = categoryCounts[cat];
-                }
+            policeFilter?.querySelectorAll('[data-police-category-count]').forEach(count => {
+                count.textContent = categoryCounts[count.dataset.policeCategoryCount] ?? 0;
             });
         } else {
             clearMarkers(policeMarkers);
@@ -3275,6 +3286,14 @@ document.addEventListener('change', function(e) {
                             </label>
                         </div>
 
+                    </div>
+
+                    <div id="hospitalFilter" class="mt-2" hidden>
+                        @include('components.map-modals.hospital-level-filter')
+                    </div>
+
+                    <div id="policeFilter" class="mt-2" hidden>
+                        @include('components.map-modals.police-category-filter')
                     </div>
 
                     <hr>
@@ -3471,9 +3490,7 @@ document.addEventListener('click', async (e) => {
 
         // sembunyikan sub-panels
         const af = document.getElementById('airportFilter');
-        const hf = document.getElementById('hospitalFilter');
         if (af) af.style.display = 'none';
-        if (hf) hf.style.display = 'none';
 
         // 2) Reset Select2 (jika ada)
         if (typeof $ !== 'undefined' && $.fn && $.fn.select2) {
